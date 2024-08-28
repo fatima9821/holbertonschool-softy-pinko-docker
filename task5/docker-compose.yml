@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  backend:
+    build: ./back-end
+    volumes:
+      - ./back-end:/app
+    ports:
+      - "5252:5252"
+
+  frontend:
+    build: ./front-end
+    volumes:
+      - ./front-end:/usr/share/nginx/html
+    ports:
+      - "9000:9000"
+
+  proxy:
+    build: ./proxy
+    ports:
+      - "80:80"
+    depends_on:
+      - frontend
+      - backend
+
